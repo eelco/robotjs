@@ -722,16 +722,19 @@ NAN_METHOD(captureScreen)
 	size_t w;
 	size_t h;
 
+	MMSize displaySize = getMainDisplaySize();
+
 	//If user has provided screen coords, use them!
 	if (info.Length() == 4)
 	{
-		//TODO: Make sure requested coords are within the screen bounds, or we get a seg fault.
-		// 		An error message is much nicer!
-
 		x = info[0]->Int32Value();
 		y = info[1]->Int32Value();
 		w = info[2]->Int32Value();
 		h = info[3]->Int32Value();
+
+		if (x < 0 || y < 0 || w > displaySize.width || h > displaySize.height) {
+			return Nan::ThrowError("Requested coordinates are outside the screen’s dimensions.");
+		}
 	}
 	else
 	{
@@ -739,8 +742,7 @@ NAN_METHOD(captureScreen)
 		x = 0;
 		y = 0;
 
-		//Get screen size.
-		MMSize displaySize = getMainDisplaySize();
+		//Use the screen size.
 		w = displaySize.width;
 		h = displaySize.height;
 	}
