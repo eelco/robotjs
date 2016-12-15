@@ -20,13 +20,16 @@
           'System/Library/Frameworks/Carbon.Framework/Headers',
           'System/Library/Frameworks/ApplicationServices.framework/Headers',
           'System/Library/Frameworks/OpenGL.framework/Headers',
+          '/usr/local/include',
         ],
         'link_settings': {
           'libraries': [
             '-framework Carbon',
             '-framework CoreFoundation',
             '-framework ApplicationServices',
-            '-framework OpenGL'
+            '-framework OpenGL',
+	    '-L/usr/local/lib',
+	    '-lpng',
           ]
         }
       }],
@@ -60,7 +63,8 @@
       'src/screen.c',
       'src/screengrab.c',
       'src/snprintf.c',
-      'src/MMBitmap.c'
+      'src/MMBitmap.c',
+      'src/png_io.c'
     ]
   }]
 }
