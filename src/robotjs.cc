@@ -732,7 +732,7 @@ NAN_METHOD(captureScreen)
 		w = info[2]->Int32Value();
 		h = info[3]->Int32Value();
 
-		if (x < 0 || y < 0 || w > displaySize.width || h > displaySize.height) {
+		if (x + w > displaySize.width || y + h > displaySize.height) {
 			return Nan::ThrowError("Requested coordinates are outside the screen’s dimensions.");
 		}
 	}
