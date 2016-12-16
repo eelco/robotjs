@@ -20,7 +20,7 @@
           'System/Library/Frameworks/Carbon.Framework/Headers',
           'System/Library/Frameworks/ApplicationServices.framework/Headers',
           'System/Library/Frameworks/OpenGL.framework/Headers',
-          '/usr/local/include',
+          '<!@(pkg-config libpng --cflags-only-I | sed "s/^-I//")',
         ],
         'link_settings': {
           'libraries': [
@@ -28,8 +28,8 @@
             '-framework CoreFoundation',
             '-framework ApplicationServices',
             '-framework OpenGL',
-	    '-L/usr/local/lib',
-	    '-lpng',
+            '<!@(pkg-config libpng --libs | sed \'s/^-L//\' | sed -E \'s/ .*/\/libpng.a/\')',
+            '-lz'
           ]
         }
       }],
